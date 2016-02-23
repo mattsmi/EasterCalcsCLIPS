@@ -10,9 +10,9 @@
     (bind ?iUserYear (read))
     
     ;Calculate Easter for that year according to the Julian, Revised Julian, and Gregorian calendars.
-    (bind ?iJulianEaster (unmakeDate (F10_CalcEaster ?iUserYear 1)))
-    (bind ?iRevisedJulianEaster (unmakeDate (F10_CalcEaster ?iUserYear 2)))
-    (bind ?iGregorianEaster (unmakeDate (F10_CalcEaster ?iUserYear 3)))
+    (bind ?iJulianEaster (unmakeDate (F10_CalcEaster ?iUserYear ?*iEDM_JULIAN*)))
+    (bind ?iRevisedJulianEaster (unmakeDate (F10_CalcEaster ?iUserYear ?*iEDM_ORTHODOX*)))
+    (bind ?iGregorianEaster (unmakeDate (F10_CalcEaster ?iUserYear ?*iEDM_WESTERN*)))
     
     ;Output results
     (printout t "Easter according to the Julian Calendar for " ?iUserYear ": " ?iJulianEaster crlf)
