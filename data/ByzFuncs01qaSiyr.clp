@@ -957,8 +957,8 @@
     (bind ?iYearHundreds (string-to-integer ?sYearHundreds))
     (bind ?iFlooredValue (floor (/ ?iYearHundreds 4)))
     (if (< ?iYearHundreds 0) then
-	;Create a real floored value, not just the result of integer division
-	(bind ?iFlooredValue (- ?iFlooredValue 1))
+		;Create a real floored value, not just the result of integer division
+		(bind ?iFlooredValue (- ?iFlooredValue 1))
     )
     (bind ?iDaysDiff (- ?iYearHundreds ?iFlooredValue 2))
     (return ?iDaysDiff)

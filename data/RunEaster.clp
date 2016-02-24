@@ -5,7 +5,7 @@
     (initial-fact)
     =>
     ;Ask the user for the year, in which they are seeking the date of Easter.
-    ;  Lazy = do not bother to check that we receive a valid year.
+    ;  Being lazy = do not bother to check that we receive a valid year.
     (printout t crlf "Year, for which Easter is sought (YYYY)? ")
     (bind ?iUserYear (read))
     
