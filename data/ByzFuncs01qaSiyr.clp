@@ -980,7 +980,7 @@
     (bind ?iX1 (- ?baseMonth (* 12 ?iC0) 3))
     (bind ?iJ (+ (floor (/ (* 146097 ?iX3) 4)) (floor (/ (* 36525 ?iX2) 100)) (floor (/ (+ (* 153 ?iX1) 2) 5)) ?baseDay 1721119))
     
-    (return (round ?iJ))
+    (return (floor ?iJ))
 )
 
 (deffunction pCJDNToGregorian
@@ -1015,7 +1015,7 @@
     (bind ?iX1 (- ?baseMonth (* 12 ?iC0) 3))
     (bind ?iJ (+ (floor (/ (+ (* 328718 ?iX3) 6) 9)) (floor (/ (* 36525 ?iX2) 100)) (floor (/ (+ (* 153 ?iX1) 2) 5)) ?baseDay 1721119))
     
-    (return (round ?iJ))
+    (return (floor ?iJ))
 )
 
 (deffunction pCJDNToMilankovic
@@ -1043,7 +1043,7 @@
     (bind ?iJ1 (floor (/ (* 1461 (+ ?baseYear ?iC0)) 4)))
     (bind ?iJ2 (floor (/ (- (* 153 ?baseMonth) (* 1836 ?iC0) 457) 5)))
     (bind ?iJ (+ ?iJ1 ?iJ2 ?baseDay ?iJ0))
-    (return (round ?iJ))
+    (return (floor ?iJ))
 )
 
 (deffunction pCJDNToJulian
@@ -1056,7 +1056,7 @@
     (bind ?iC0 (floor (/ (+ ?iX1 2) 12)))
     (bind ?iYear (+ (floor (/ ?iK2 1461)) ?iC0))
     (bind ?iMonth (+ (- ?iX1 (* 12 ?iC0)) 3))
-    (bind ?iDay (round (+ (floor (/ (mod ?iK1 153) 5)) 1)))
+    (bind ?iDay (floor (+ (floor (/ (mod ?iK1 153) 5)) 1)))
     
     (return (mkDate ?iYear ?iMonth ?iDay))
 )
