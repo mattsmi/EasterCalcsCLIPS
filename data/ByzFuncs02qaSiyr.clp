@@ -40,69 +40,30 @@
         )
     else
         (if (= ?imMethod ?*iEDM_WESTERN*) then
-            ;Calculate Easter Sunday date 
-            ;first two digits of the year 
-            (bind ?iFirstDig (div ?imYear 100)) 
-            (bind ?iRemain19 (mod ?imYear 19))
-                ;Calculate PFM date 
-            (bind ?iTempNum (- (+ (div (- ?iFirstDig 15) 2) 202) (* 11 ?iRemain19))) 
-            (switch ?iTempNum 
-                (case 21 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 24 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 25 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 27 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 28 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 29 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 30 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 31 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 32 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 34 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 35 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 38 then (bind ?iTempNum (- ?iTempNum 1))) 
-                (case 33 then (bind ?iTempNum (- ?iTempNum 2))) 
-                (case 36 then (bind ?iTempNum (- ?iTempNum 2))) 
-                (case 37 then (bind ?iTempNum (- ?iTempNum 2))) 
-                (case 39 then (bind ?iTempNum (- ?iTempNum 2))) 
-                (case 40 then (bind ?iTempNum (- ?iTempNum 2))) 
-                (default none) 
-            ) 
-            (bind ?iTempNum (mod ?iTempNum 30)) 
-    
-            (bind ?iTableA (+ ?iTempNum 21)) 
-            (if (= ?iTempNum 29) then 
-                (bind ?iTableA (- ?iTableA 1)) 
-            ) 
-            (if (and (= ?iTempNum 28) (> ?iRemain19 10)) then 
-                (bind ?iTableA (- ?iTableA 1)) 
-            ) 
-    
-            ;Find the next Sunday 
-            (bind ?iTableB (mod (- ?iTableA 19) 7)) 
-            
-            (bind ?iTableC (mod (- 40 ?iFirstDig) 4)) 
-            (if (= ?iTableC 3) then 
-                (bind ?iTableC (+ ?iTableC 1)) 
-            ) 
-            (if (> ?iTableC 1) then 
-                (bind ?iTableC (+ ?iTableC 1)) 
-            ) 
-            
-            (bind ?iTempNum (mod ?imYear 100)) 
-            (bind ?iTableD (mod (+ ?iTempNum (div ?iTempNum 4)) 7)) 
-            
-            (bind ?iTableE (+ (mod (- 20 ?iTableB ?iTableC ?iTableD) 7) 1)) 
-            (bind ?imDay (+ ?iTableA ?iTableE))
-            
-            ;Return the date of Easter 
-            (if (> ?imDay 31) then 
-                (bind ?imDay (- ?imDay 31)) 
-                (bind ?imMonth 4) 
-            else 
-                (bind ?imMonth 3) 
-            ) 
+            ;From Ian Stewart's page of O'Beirne's formula:
+            ;   http://www.whydomath.org/Reading_Room_Material/ian_stewart/2000_03.html .
+            (bind ?iA (mod ?imYear 19))
+            ;;;   ?iA + 1 is the year’s Golden Number.
+            (bind ?iB (div ?imYear 100))
+            (bind ?iC (mod ?imYear 100))
+            (bind ?iD (div ?iB 4))
+            (bind ?iE (mod ?iB 4))
+            (bind ?iG (div (+ (* 8 ?iB) 13) 25))
+            (bind ?iH (mod (+ (- (- (+ (* 19 ?iA) ?iB) ?iD) ?iG) 15) 30))
+            ;;;   The year’s Epact is 23 – ?iH when ?iH is less than 24 and 53 – ?iH otherwise.
+            (bind ?iM (div (+ ?iA (* 11 ?iH)) 319))
+            (bind ?iJ (div ?iC 4))
+            (bind ?iK (mod ?iC 4))
+            (bind ?iL (mod (+ (+ (- (- (+ (* 2 ?iE) (* 2 ?iJ)) ?iK) ?iH) ?iM) 32) 7))
+            (bind ?iN (div (+ (+ (- ?iH ?iM) ?iL) 90) 25))
+            (bind ?iP (mod (+ (+ (+ (- ?iH ?iM) ?iL) ?iN) 19) 32))
+            ;;;   The year’s dominical letter can be found by dividing 2E + 2J – K by 7,
+            ;;;      and taking the remainder (a remainder of 0 is equivalent to the letter A,
+            ;;;      1 is equivalent to B, and so on.
+            (bind ?imDay ?iP)
+            (bind ?imMonth ?iN)
             (bind ?dTemp (mkDate ?imYear ?imMonth ?imDay))
             (return ?dTemp)
-            
         else
             (return nil)
         )
