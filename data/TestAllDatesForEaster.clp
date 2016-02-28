@@ -30,11 +30,20 @@
 (deffunction CalcDataForAllCalendars
     (?iStartYear ?iFinishYear)
     
-    ;Some basic checking of arguments
+    ;;Some basic checking of arguments
+    ;;   The year should be an integer.
     (if (or (not (integerp ?iStartYear)) (not (integerp ?iFinishYear))) then
+        (printout t crlf crlf "Invalid year(s) for calculating Easter: " ?iStartYear " - " ?iFinishYear crlf crlf)
         (return nil)
     )
+    ;;   The year should not be before the decision of the council of Nicæa came into effect.
     (if (< ?iStartYear 326) then
+        (printout t crlf crlf "It is not possible to calculate the date of Easter before the Council of Nicæa!" crlf crlf)
+        (return nil)
+    )
+    ;;   CLIPS date functions require valid dates to be later than 1970-01-01.
+    (if (< ?iStartYear 1970) then
+        (printout t crlf crlf "Date functions written for CLIPS require a year more recent than 1970." crlf crlf)
         (return nil)
     )
     
