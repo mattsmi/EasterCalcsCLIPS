@@ -10,3 +10,5 @@ To calculate the date of Easter for a given year by running this CLIPS code:
   * execute the following in the CLIPS shell: `(batch* "StartEasterCalcs.clp")` .
 
 The script will automatically close the CLIPS shell.
+
+If you do not have CLIPS already installed, install it from here: [CLIPS at SourceForge](https://sourceforge.net/projects/clipsrules/files/CLIPS/6.30/) .
