@@ -1,7 +1,7 @@
-EasterCalcsCLIPS
-================
+Calculating Easter using the CLIPS Expert System tool (Rules Engine)
+====================================================================
 
-CLIPS functions for calculating the dates of Julian and Gregorian Easter for a given year. Dates are returned in ISO 8601 format (YYYY-MM-DD). The script is quite simple and does not perform any checking that it receives a valid year; it assumes it receives a valid year in "YYYY" format.
+CLIPS functions for calculating the dates of Julian, Revised Julian, and Gregorian Easter for a given year. Dates are returned in ISO 8601 format (YYYY-MM-DD). The script is quite simple and does not perform any checking that it receives a valid year; it assumes it receives a valid year in "YYYY" format.
 
 To calculate the date of Easter for a given year by running this CLIPS code: 
 
