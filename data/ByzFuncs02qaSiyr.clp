@@ -6,9 +6,9 @@
 ;;;Rules and functions start here
 (deffunction F10_CalcEaster
     (?imYear ?imMethod)
-    
+
     ;validate the arguments
-    (if (or (< ?imMethod ?*iEDM_JULIAN*) (> ?imMethod ?*iEDM_WESTERN*)) then
+    (if (and (!= ?imMethod ?*iEDM_JULIAN*) (!= ?imMethod ?*iEDM_ORTHODOX*) (!= ?imMethod ?*iEDM_WESTERN*)) then
         (return nil)
     )
     (if (and (= ?imMethod ?*iEDM_JULIAN*) (< ?imYear ?*iFIRST_EASTER_YEAR*)) then
@@ -40,7 +40,7 @@
         )
     else
         (if (= ?imMethod ?*iEDM_WESTERN*) then
-            ;From Ian Stewart's page of O'Beirne's formula:
+             ;From Ian Stewart's page of O'Beirne's formula:
             ;   http://www.whydomath.org/Reading_Room_Material/ian_stewart/2000_03.html .
             (bind ?iA (mod ?imYear 19))
             ;;;   ?iA + 1 is the year’s Golden Number.
@@ -72,16 +72,16 @@
 
 (deffunction F09_CalcPreviousEaster
     (?dDate ?iDateMethod)
-    
+
     ;Check arguments
     (bind ?iYearTemp (yearFromDateINT ?dDate))
     (if (or (not (integerp ?dDate)) (not (integerp ?iDateMethod))) then
         (return nil)
     )
-    (if (or (< ?iDateMethod ?*iEDM_JULIAN*) (> ?iDateMethod ?*iEDM_WESTERN*)) then
+    (if (and (!= ?iDateMethod ?*iEDM_JULIAN*) (!= ?iDateMethod ?*iEDM_ORTHODOX*) (!= ?iDateMethod ?*iEDM_WESTERN*)) then
         (return nil)
     )
-    
+
     (bind ?dDateHolder (F10_CalcEaster ?iYearTemp ?iDateMethod))
     (if (< ?dDateHolder ?dDate) then
         (return ?dDateHolder)
@@ -92,17 +92,17 @@
 
 (deffunction F11_CalcNextEaster
     (?dDate ?iDateMethod)
-    
-    
+
+
     ;Check arguments
     (bind ?iYearTemp (yearFromDateINT ?dDate))
     (if (or (not (integerp ?dDate)) (not (integerp ?iDateMethod))) then
         (return nil)
     )
-    (if (or (< ?iDateMethod ?*iEDM_JULIAN*) (> ?iDateMethod ?*iEDM_WESTERN*)) then
+    (if (and (!= ?iDateMethod ?*iEDM_JULIAN*) (!= ?iDateMethod ?*iEDM_ORTHODOX*) (!= ?iDateMethod ?*iEDM_WESTERN*)) then
         (return nil)
     )
-    
+
     (bind ?dDateHolder (F10_CalcEaster ?iYearTemp ?iDateMethod))
     (if (> ?dDateHolder ?dDate) then
         (return ?dDateHolder)
