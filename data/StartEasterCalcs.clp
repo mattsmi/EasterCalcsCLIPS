@@ -3,7 +3,7 @@
 
 (clear)
 (reset)
-(defglobal ?*EDM* = 3)
+(defglobal ?*EDM* = nil)
 (defglobal ?*yearSought* = nil)
 (defglobal ?*prevEaster* = nil)
 (defglobal ?*easter* = nil)

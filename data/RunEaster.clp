@@ -2,6 +2,7 @@
 ;;;    how to calculate the date of Easter.
 
 (defrule rGetDetailsFromInput
+    (declare (salience ?*normal-priority*))
     (initial-fact)
     =>
     ;Ask the user for the year, in which they are seeking the date of Easter.
@@ -18,4 +19,21 @@
     (printout t "Easter according to the Julian Calendar for " ?iUserYear ": " ?iJulianEaster crlf)
     (printout t "Easter according to the Revised Julian Calendar for " ?iUserYear ": " ?iRevisedJulianEaster crlf)
     (printout t "Easter according to the Gregorian Calendar for " ?iUserYear ": " ?iGregorianEaster crlf)
+)
+(defrule checkEasterDatingMethod
+    (declare (salience ?*highest-priority*))
+
+    (test (not (member$ EDM (get-defglobal-list))))
+    =>
+    ;If it hasn't been set, set it to a reasonable default; i.e., Western Easter (Gregorian Calendar).
+    (build "(defglobal ?*EDM* = ?*iEDM_WESTERN*)")
+)
+(defrule checkEasterDatingMethodNotNULL
+    (declare (salience ?*highest-priority*))
+
+    (test (and (member$ EDM (get-defglobal-list)) (eq (eval (sym-cat "?*" "EDM" "*")) nil)))
+
+    =>
+    ;If it hasn't been set, set it to a reasonable default; i.e., Western Easter (Gregorian Calendar).
+    (build "(defglobal ?*EDM* = ?*iEDM_WESTERN*)")
 )
