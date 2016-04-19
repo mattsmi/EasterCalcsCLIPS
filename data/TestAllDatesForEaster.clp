@@ -7,7 +7,7 @@
 
 (clear)
 (reset)
-(defglobal ?*EDM* = nil)
+(defglobal ?*EDM* = 3)
 (defglobal ?*yearSought* = nil)
 (defglobal ?*prevEaster* = nil)
 (defglobal ?*easter* = nil)
@@ -29,7 +29,7 @@
 ;; Define a function to iterate through dates required.
 (deffunction CalcDataForAllCalendars
     (?iStartYear ?iFinishYear)
-    
+
     ;;Some basic checking of arguments
     ;;   The year should be an integer.
     (if (or (not (integerp ?iStartYear)) (not (integerp ?iFinishYear))) then
@@ -39,11 +39,6 @@
     ;;   The year should not be before the decision of the council of Nicæa came into effect.
     (if (< ?iStartYear 326) then
         (printout t crlf crlf "It is not possible to calculate the date of Easter before the Council of Nicæa!" crlf crlf)
-        (return nil)
-    )
-    ;;   CLIPS date functions require valid dates to be later than 1970-01-01.
-    (if (< ?iStartYear 1970) then
-        (printout t crlf crlf "Date functions written for CLIPS require a year more recent than 1970." crlf crlf)
         (return nil)
     )
     
@@ -69,7 +64,7 @@
         ;Increment counter
         (bind ?iCounter (+ ?iCounter 1))
     )
-    
+
     ;we return no value
     (return nil)
 )
