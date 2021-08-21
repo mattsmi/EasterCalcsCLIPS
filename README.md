@@ -14,4 +14,7 @@ The script will automatically close the CLIPS shell.
 If you do not have CLIPS already installed, install it from here: [CLIPS at SourceForge](https://sourceforge.net/projects/clipsrules/files/CLIPS/6.30/) .
 
 **NB** This runs on CLIPS Version 6.30. It will need to be modified for CLIPS Version 6.40.
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0df7ff3876b2951207df3c292c785228834e15ed
